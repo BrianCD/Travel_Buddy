@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'travels/css/add.css'%}" media="screen" title="no title">
+    <link rel="stylesheet" href="{% static 'travels/css/all.css'%}" media="screen" title="no title">
+    <script type="text/javascript">
+      Date.prototype.toDateInputValue = (function() {
+        var local = new Date(this);
+        local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+        return local.toJSON().slice(0,10);
+      });
+      $(document).ready(function(){
+        $('.class').attr("min", new Date().toDateInputValue());
+      });​
+    </script>
+  </head>
+  <body>
+      <span class="right"><a href="/travels/">Home</a><a href="/logout">Logout</a></span>
+      <h1>Add a Trip:</h1>
+      {% if messages %}
+        {{header}}
+        <ul class="messages">
+          {% for message in rest %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      <br>
+      <form class="" action="/travels/new" method="post">
+        {% csrf_token %}
+        Destination: <input type="text" name="destination" value="">
+        <br>
+        Description: <textarea name="description" rows="8" cols="40"></textarea>
+        <br>
+        Travel Date From: <input class="date" type="date" name="start_date" value="">
+        <br>
+        Travel Date To: <input class="date" type="date" name="end_date" value="">
+        <br>
+        <br>
+        <input type="submit" class="right" name="name" value="Submit">
+      </form>
+  </body>
+</html>

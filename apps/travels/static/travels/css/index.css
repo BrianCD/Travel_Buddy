@@ -1,0 +1,8 @@
+th, td{
+  border-left-style: solid;
+  border-width: thin;
+}
+
+th{
+  background-color: lightgrey;
+}
